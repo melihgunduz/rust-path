@@ -32,11 +32,17 @@ impl Deck {
     // If you delete semicolon from end of the line, rust returns the value automatically, this named as 'implicit return'
     Deck {cards}    
     }
+
+    fn shuffle (&self) {
+        
+    }
 }
 
 
 fn main() {
     let deck = Deck::new();
+
+    deck.shuffle();
 
     println!("Here's your deck: {:#?}", deck.cards);
     
