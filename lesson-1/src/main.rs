@@ -1,3 +1,4 @@
+
 use rand::{rng, seq::SliceRandom};
 
 
@@ -41,14 +42,33 @@ impl Deck {
         let mut rng = rng();
         self.cards.shuffle(&mut rng);
     }
+
+    // need some error handling
+    fn deal(&mut self, num_cards:usize) -> Vec<String> {
+        self.cards.split_off(self.cards.len() - num_cards)
+    }
 }
 
 
 fn main() {
     let mut deck = Deck::new();
 
-    deck.shuffle();
+    println!("{}", deck.cards.len());
 
-    println!("Here's your deck: {:#?}", deck.cards);
+    // need some error handling
+    deck.shuffle();
+    let cards = deck.deal(3);
+    let cards_1 = deck.deal(3);
+    // let cards_2 = deck.deal(3);
+
+    let missing_player:u8 = 1;
+
+    println!("Here's your hand: {:#?}", cards);
+    println!("Here's player 1 hand: {:#?}", cards_1);
+    // println!("Here's player 2 hand: {:#?}", cards_2);
+
+    if deck.cards.len() == 0 {
+        println!("All cards have dealed");
+    } else { println!("{} Player missing", missing_player)};
     
 }
