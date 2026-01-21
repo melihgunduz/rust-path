@@ -1,3 +1,7 @@
+use rand::{rng, seq::SliceRandom};
+
+
+
 #[derive(Debug)] 
 // trait: a set of functions
 // derive: specifies which 'traits' to automatically implement for this struct, called 'derive attribute'
@@ -33,14 +37,15 @@ impl Deck {
     Deck {cards}    
     }
 
-    fn shuffle (&self) {
-        
+    fn shuffle (&mut self) {
+        let mut rng = rng();
+        self.cards.shuffle(&mut rng);
     }
 }
 
 
 fn main() {
-    let deck = Deck::new();
+    let mut deck = Deck::new();
 
     deck.shuffle();
 
