@@ -23,8 +23,9 @@ impl Account {
     }
 }
 
-fn print_acc(account: Account) {
-    println!("{:#?}", account)
+fn print_acc(account: &Account){
+    println!("{:#?}", account);
+
 }
 
 // Every value is owned by a single variable at a time
@@ -32,7 +33,10 @@ fn print_acc(account: Account) {
 // moves the value. The old owner can't be used to access the value anymore!
 fn main() {
     let account = Account::new(1, String::from("melih"));
-    print_acc(account);
-    print_acc(account);
+    print_acc(&account);
+    
+    println!("test-1: {:#?}", &account);
+    println!("test-2: {:#?}", account);
+    //can't move a value while a ref to the value exists
     
 }
