@@ -106,18 +106,23 @@ fn main () {
         }
     } */
 
-    // let item = catalog.get_by_index(0);
-    // println!("{:#?}", item);
 
-    match catalog.get_by_index(3) {
-        Some(value) => 
-        {
-            println!("Item {:#?}", value);
-        }
-        None => {
-            println!("No value at this index!")
-        }
-    }
+    // unwrap(), If item is a 'Some' returns the value in the Some, If item is None, panics! Use for quick debugging or examples
+    // expect("there should be a value here"), same with unwrap but prints provided debug message if item is a 'None' and panics! Use when we want to crash if there is no value
+    // unwrap_or(&placeholder), If item is 'Some' returns the value in the Some else returns the provided default value. Use when it makes sense to provide a fallback value
+    let item = catalog.get_by_index(0);
+    let placeholder = Media::Placeholder;
+    println!("{:#?}",item.unwrap_or(&placeholder));
+
+    // match catalog.get_by_index(3) {
+    //     Some(value) => 
+    //     {
+    //         println!("Item {:#?}", value);
+    //     }
+    //     None => {
+    //         println!("No value at this index!")
+    //     }
+    // }
 
     // if let Some(value) = catalog.get_by_index(2) {
     //     println!("Item in pattern match: {:#?}", value)
