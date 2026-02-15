@@ -1,3 +1,5 @@
+use std::thread::Thread;
+
 #[derive(Debug)]
 
 enum Media {
@@ -45,11 +47,23 @@ impl Catalog {
     fn add(&mut self, media:Media) {
         self.items.push(media);
     }
+
+    fn get_by_index(&self, index: usize) -> MightHaveAValue {
+        if self.items.len() > index {
+            MightHaveAValue::ThereIsAValue(&self.items[index])
+        } else {
+            MightHaveAValue::NoValueAvailable
+        }
+    }
 }
 
-fn print_media (media: Media) {
-    println!("{:#?}", media);
+
+enum MightHaveAValue<'a> {
+    ThereIsAValue(&'a Media),
+    NoValueAvailable
 }
+
+
 
 
 fn main () {
@@ -79,5 +93,39 @@ fn main () {
     catalog.add(podcast);
     catalog.add(placeholder);
 
-    println!("{:#?}", catalog);
+    // get function belongs to every vector
+    // Rust doesn't have null, nil or undefined
+    // If you want to work with Option you have to use pattern matching
+    // (the 'if let' thing) or a match statement
+    // Has two variants - 'Some(value)' and 'None'
+    // Forces you to handle the case in which you have a value
+    // and the case in which you don't
+    
+    /* match catalog.items.get(0) {
+        Option::Some(value) => {
+            println!("Item: {:#?}", value);
+        }
+        Option::None => {
+            println!("Nothing at that index")
+        }
+    } */
+
+    // let item = catalog.get_by_index(0);
+    // println!("{:#?}", item);
+
+    // match catalog.get_by_index(35) {
+    //     MightHaveAValue::ThereIsAValue(value) => 
+    //     {
+    //         println!("Item {:#?}", value);
+    //     }
+    //     MightHaveAValue::NoValueAvailable => {
+    //         println!("No value at this index!")
+    //     }
+    // }
+
+    if let MightHaveAValue::ThereIsAValue(value) = catalog.get_by_index(220) {
+        println!("Item in pattern match: {:#?}", value)
+    } else {
+        println!("No value")
+    }
 }
