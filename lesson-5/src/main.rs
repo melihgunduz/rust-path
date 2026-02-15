@@ -22,6 +22,13 @@ fn main() {
             println!("{}", error_of_division)
         }
     }
+
+    match validate_email(String::from("asd@asd.com")){ 
+        Ok(..) => println!("email is valid"),
+        Err(reason_of_failed_validation) => {
+            println!("{}", reason_of_failed_validation)
+        }
+    }
     
 }
 
@@ -31,5 +38,13 @@ fn divide(a: f64, b:f64) -> Result<f64, Error> {
         Err((Error::other("cant divide by 0")))
     } else {
         Ok(a/b)
+    }
+}
+
+fn validate_email(email: String) -> Result<(), Error> {
+    if email.contains("@") {
+        Ok(())
+    } else {
+        Err(Error::other("email must have an @"))
     }
 }
